@@ -1,0 +1,21 @@
+print("Unidades disponíveis: C = Celsius, F = Fahrenheit, K = Kelvin")
+
+temperatura = float(input("Digite a temperatura: "))
+origem = input("Converter de (C/F/K): ").upper()
+destino = input("Converter para (C/F/K): ").upper()
+
+if origem == "F":
+    celsius = (temperatura - 32) * 5 / 9
+elif origem == "K":
+    celsius = temperatura - 273.15
+else:
+    celsius = temperatura
+
+if destino == "F":
+    resultado = (celsius * 9 / 5) + 32
+elif destino == "K":
+    resultado = celsius + 273.15
+else:
+    resultado = celsius
+
+print(f"{temperatura:.2f}°{origem} = {resultado:.2f}°{destino}")

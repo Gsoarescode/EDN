@@ -1,4 +1,3 @@
-# Calculadora de Salário por Horas Trabalhadas
 numero_funcionario = int(input("Digite o número do funcionário: "))
 horas_trabalhadas = int(input("Digite o número de horas trabalhadas: "))
 valor_por_hora = float(input("Digite o valor recebido por hora: "))

@@ -1,0 +1,62 @@
+1 – Função para calcular a gorjeta
+def calcular_gorjeta(valor_conta: float, porcentagem_gorjeta: float) -> float:
+    """
+    Calcula o valor da gorjeta baseada no total da conta e na porcentagem desejada.
+    """
+    gorjeta = valor_conta * (porcentagem_gorjeta / 100)
+    return gorjeta
+
+
+# Exemplo de uso:
+valor = float(input("Digite o valor total da conta: R$ "))
+porcentagem = float(input("Digite a porcentagem da gorjeta (ex: 10 para 10%): "))
+
+gorjeta = calcular_gorjeta(valor, porcentagem)
+print(f"Gorjeta: R$ {gorjeta:.2f}")
+print(f"Total com gorjeta: R$ {valor + gorjeta:.2f}")
+
+2 – Função para verificar se é palíndromo
+def eh_palindromo(texto: str) -> bool:
+    """
+    Verifica se uma palavra ou frase é um palíndromo (ignora espaços e pontuação).
+    """
+    texto_limpo = ''.join(c.lower() for c in texto if c.isalnum())
+    return texto_limpo == texto_limpo[::-1]
+
+
+# Exemplo de uso:
+frase = input("Digite uma palavra ou frase: ")
+resultado = eh_palindromo(frase)
+
+if resultado:
+    print("Sim")
+else:
+    print("Não")
+
+3 – Programa para calcular o preço com desconto
+preco_original = float(input("Digite o preço do produto: R$ "))
+percentual_desconto = float(input("Digite o percentual de desconto (%): "))
+
+valor_desconto = preco_original * (percentual_desconto / 100)
+preco_final = preco_original - valor_desconto
+
+print(f"Desconto: R$ {valor_desconto:.2f}")
+print(f"Preço final: R$ {preco_final:.2f}")
+
+4 – Função para calcular idade em dias
+from datetime import date
+
+def idade_em_dias(ano_nascimento: int) -> int:
+    """
+    Calcula a idade de uma pessoa em dias com base no ano de nascimento.
+    """
+    ano_atual = date.today().year
+    idade_anos = ano_atual - ano_nascimento
+    return idade_anos * 365
+
+
+# Exemplo de uso:
+ano = int(input("Digite o ano de nascimento: "))
+dias = idade_em_dias(ano)
+print(f"Idade aproximada em dias: {dias} dias")
+

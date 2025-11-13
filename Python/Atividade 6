@@ -1,0 +1,91 @@
+1 - Gerador de senha aleatória
+import random
+import string
+
+def gerar_senha(tamanho: int) -> str:
+    caracteres = string.ascii_letters + string.digits + string.punctuation
+    senha = ''.join(random.choice(caracteres) for _ in range(tamanho))
+    return senha
+
+# Exemplo de uso:
+tamanho = int(input("Quantos caracteres a senha deve ter? "))
+senha = gerar_senha(tamanho)
+print(f"Senha gerada: {senha}")
+
+2 - Gerador de perfil de usuário aleatório via API
+import requests
+
+def gerar_perfil_usuario():
+    url = "https://randomuser.me/api/"
+    response = requests.get(url)
+    data = response.json()
+    user = data['results'][0]
+    nome = f"{user['name']['first']} {user['name']['last']}"
+    email = user['email']
+    pais = user['location']['country']
+    return nome, email, pais
+
+# Exemplo de uso:
+nome, email, pais = gerar_perfil_usuario()
+print(f"Nome: {nome}")
+print(f"Email: {email}")
+print(f"País: {pais}")
+
+3 - Consulta de endereço a partir de CEP via API
+import requests
+
+def consultar_cep(cep: str):
+    cep = cep.replace("-", "").strip()
+    url = f"https://viacep.com.br/ws/{cep}/json/"
+    response = requests.get(url)
+    data = response.json()
+    if "erro" in data:
+        return None
+    return data['logradouro'], data['bairro'], data['localidade'], data['uf']
+
+# Exemplo de uso:
+cep = input("Digite o CEP (somente números): ")
+resultado = consultar_cep(cep)
+if resultado:
+    logradouro, bairro, cidade, estado = resultado
+    print(f"Logradouro: {logradouro}")
+    print(f"Bairro: {bairro}")
+    print(f"Cidade: {cidade}")
+    print(f"Estado: {estado}")
+else:
+    print("CEP não encontrado ou inválido.")
+
+4 - Consulta de cotação de moeda estrangeira em relação ao Real (BRL) via API
+import requests
+
+def consultar_cotacao(moeda_origem: str):
+    moeda_origem = moeda_origem.upper()
+    par = f"{moeda_origem}-BRL"
+    url = f"https://economia.awesomeapi.com.br/json/last/{par}"
+    response = requests.get(url)
+    data = response.json()
+    key = moeda_origem + "BRL"
+    if key not in data:
+        return None
+    cot = data[key]
+    return {
+        "moeda": cot["code"],
+        "nome": cot["name"],
+        "valor_atual": float(cot["bid"]),
+        "maximo": float(cot["high"]),
+        "minimo": float(cot["low"]),
+        "data_hora": cot["create_date"]
+    }
+
+# Exemplo de uso:
+moeda = input("Digite o código da moeda (ex: USD, EUR, GBP): ")
+dados = consultar_cotacao(moeda)
+if dados:
+    print(f"Moeda: {dados['moeda']}")
+    print(f"Nome: {dados['nome']}")
+    print(f"Valor atual: R$ {dados['valor_atual']:.4f}")
+    print(f"Máximo: R$ {dados['maximo']:.4f}")
+    print(f"Mínimo: R$ {dados['minimo']:.4f}")
+    print(f"Data/hora da última atualização: {dados['data_hora']}")
+else:
+    print("Moeda inválida ou não encontrada.")

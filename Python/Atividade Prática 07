@@ -1,0 +1,78 @@
+1 -
+epoch 1 - time: 0.52
+epoch 2 - time: 0.49
+epoch 3 - time: 0.57
+
+
+Script (ler_log.py):
+
+import re
+import statistics
+
+def ler_tempos_log(caminho_arquivo):
+    tempos = []
+
+    with open(caminho_arquivo, "r") as arquivo:
+        for linha in arquivo:
+            match = re.search(r"time:\s*([0-9.]+)", linha)
+            if match:
+                tempos.append(float(match.group(1)))
+
+    return tempos
+
+tempos = ler_tempos_log("log.txt")
+
+if tempos:
+    media = statistics.mean(tempos)
+    desvio = statistics.stdev(tempos)
+
+    print(f"Média do tempo de execução: {media:.4f}")
+    print(f"Desvio padrão: {desvio:.4f}")
+else:
+    print("Nenhum dado de tempo encontrado no log.")
+
+2 - 
+import csv
+
+dados = [
+    {"Nome": "Ana", "Idade": 28, "Cidade": "São Paulo"},
+    {"Nome": "Carlos", "Idade": 34, "Cidade": "Rio de Janeiro"},
+    {"Nome": "Marina", "Idade": 22, "Cidade": "Curitiba"}
+]
+with open("pessoas.csv", "w", newline="", encoding="utf-8") as arquivo:
+    escritor = csv.DictWriter(arquivo, fieldnames=["Nome", "Idade", "Cidade"])
+    escritor.writeheader()
+    escritor.writerows(dados)
+
+print("Arquivo pessoas.csv criado com sucesso!")
+
+3 - 
+import csv
+
+with open("pessoas.csv", "r", encoding="utf-8") as arquivo:
+    leitor = csv.DictReader(arquivo)
+
+    for linha in leitor:
+        print(f"Nome: {linha['Nome']}, Idade: {linha['Idade']}, Cidade: {linha['Cidade']}")
+
+4 - 
+import json
+
+pessoa = {
+    "nome": "João",
+    "idade": 30,
+    "cidade": "Belo Horizonte"
+}
+
+# Escrever JSON
+with open("pessoa.json", "w", encoding="utf-8") as arquivo:
+    json.dump(pessoa, arquivo, indent=4, ensure_ascii=False)
+
+print("Arquivo JSON criado!")
+
+# Ler JSON
+with open("pessoa.json", "r", encoding="utf-8") as arquivo:
+    dados = json.load(arquivo)
+
+print("Dados lidos do JSON:")
+print(dados)
